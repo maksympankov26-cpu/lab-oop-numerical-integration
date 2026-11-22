@@ -8,11 +8,18 @@
 """Головний модуль запуску чисельного інтегрування."""
 import math
 from integrators import (RectangleIntegrator,SimpsonIntegrator,TrapezoidIntegrator,)
+global x
 def target_function(x):
     """Підінтегральна функція згідно з індивідуальним варіантом."""
-    pass
+    
+    return math.sin(2*x)*math.exp(-x**2)
 def main():
     """Точка входу програми."""
-    pass
+
+    a=1
+    b=2
+    print(RectangleIntegrator(target_function,a,b).integrate(2))
+    print(TrapezoidIntegrator(target_function,a,b).integrate(2))
+    print(SimpsonIntegrator(target_function,a,b).integrate(2))
 if __name__ == "__main__":
-    main()
+    print(main())
