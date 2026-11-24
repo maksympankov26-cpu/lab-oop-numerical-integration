@@ -29,19 +29,22 @@ class BaseIntegrator:
     def integrate(self, n):
         """Обчислює наближене значення інтеграла для n розбиттів."""
 
-        self.integrate(n)
-        raise NotImplementedError
-    def adaptive_integrate(self, eps=1e-4, initial_n=2):
+        raise NotImplementedError("Метод integrate має бути реалізований у підкласі.")
+    def adaptive_integrate(self, eps, initial_n=2):
         """Знаходить інтеграл із заданою точністю eps за правилом Рунге."""
 
         n=initial_n
+        
         integral_n=self.integrate(n)
+        print(f"n = {n} -> I = {integral_n}")
         while True:
             n*=2
             integral_2n=self.integrate(n)
+            print(f"n = {n} -> I = {integral_2n:.7f}")
             error_estimate=abs(integral_2n-integral_n)/(2**self.order-1)
             if error_estimate<eps:
-                return integral_2n
+                integral_2n+=error_estimate
+                return f'Уточнений результат: {integral_2n:.7f} (n_min={n}, похибка ≈ {error_estimate:.2e})\n\n'
             integral_n=integral_2n
     def __str__(self):
         """Повертає рядкове представлення об'єкта інтегратора."""
@@ -60,6 +63,7 @@ class RectangleIntegrator(BaseIntegrator):
         self.order=2
     def integrate(self, n):
 
+        print(f'{self.method_name} на відрізку [{self.a};{self.b}] (порядок точності О(h^{self.order}))')
         h=(self.b-self.a)/n
         integral=0
         for i in range(n):
@@ -80,9 +84,13 @@ class TrapezoidIntegrator(BaseIntegrator):
         self.order=2
 
     def integrate(self, n):
+
+        print(f'{self.method_name} на відрізку [{self.a};{self.b}] (порядок точності О(h^{self.order}))')
+        if ZeroDivisionError==True:
+            a+=0.00001
         h=(self.b-self.a)/n
-        integral=0
-        for i in range(n):
+        integral=0.5*(self.func(self.a)+self.func(self.b))
+        for i in range(1,n):
             x=self.a+i*h
             integral+=self.func(x)
         integral*=h
@@ -94,12 +102,13 @@ class SimpsonIntegrator(BaseIntegrator):
 
     order = None
     method_name = "Формула Сімпсона"
+    
     def __init__(self, func, a, b):
-
         super().__init__(func, a, b)
         self.order=4
+    
     def integrate(self, n):
-
+        print(f'{self.method_name} на відрізку [{self.a};{self.b}] (порядок точності О(h^{self.order}))')
         h=(self.b-self.a)/n
         integral=self.func(self.a)+self.func(self.b)
         for i in range(1, n, 2):
