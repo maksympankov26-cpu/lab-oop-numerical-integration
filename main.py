@@ -9,17 +9,30 @@
 import math
 from integrators import (RectangleIntegrator,SimpsonIntegrator,TrapezoidIntegrator,)
 global x
+
+def test_function(x):
+    """Тестова функція для перевірки методу"""
+    if abs(x)<=1e-8:
+        return -0.5
+    return (math.cos(x)-1)/(x**2)
 def target_function(x):
     """Підінтегральна функція згідно з індивідуальним варіантом."""
-    
+
     return math.sin(2*x)*math.exp(-x**2)
 def main():
     """Точка входу програми."""
 
+    a=0
+    b=1
+    eps=1e-4
+    print(RectangleIntegrator(test_function,a,b).adaptive_integrate(eps,2))
+    print(TrapezoidIntegrator(test_function,a,b).adaptive_integrate(eps,2))
+    print(SimpsonIntegrator(test_function,a,b).adaptive_integrate(eps,2))
     a=1
     b=2
-    print(RectangleIntegrator(target_function,a,b).integrate(2))
-    print(TrapezoidIntegrator(target_function,a,b).integrate(2))
-    print(SimpsonIntegrator(target_function,a,b).integrate(2))
+    eps=0.00007
+    print(RectangleIntegrator(target_function,a,b).adaptive_integrate(eps,2))
+    print(TrapezoidIntegrator(target_function,a,b).adaptive_integrate(eps,2))
+    print(SimpsonIntegrator(target_function,a,b).adaptive_integrate(eps,2))
 if __name__ == "__main__":
-    print(main())
+    main()
