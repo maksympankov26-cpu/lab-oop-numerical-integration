@@ -25,12 +25,19 @@ def main():
     a=0
     b=1
     eps=1e-4
+    print("Тестова функція:")
     print(RectangleIntegrator(test_function,a,b).adaptive_integrate(eps,2))
     print(TrapezoidIntegrator(test_function,a,b).adaptive_integrate(eps,2))
     print(SimpsonIntegrator(test_function,a,b).adaptive_integrate(eps,2))
     a=1
     b=2
     eps=0.00007
+    print("Функція, та що із заданого варіанту")
+    print(RectangleIntegrator(target_function,a,b).adaptive_integrate(eps,2))
+    print(TrapezoidIntegrator(target_function,a,b).adaptive_integrate(eps,2))
+    print(SimpsonIntegrator(target_function,a,b).adaptive_integrate(eps,2))
+    eps*=0.1
+    print("Функція, та що із заданого варіанту та з видозміненим ")
     print(RectangleIntegrator(target_function,a,b).adaptive_integrate(eps,2))
     print(TrapezoidIntegrator(target_function,a,b).adaptive_integrate(eps,2))
     print(SimpsonIntegrator(target_function,a,b).adaptive_integrate(eps,2))
