@@ -15,13 +15,13 @@ def test_function(x):
     if abs(x)<=1e-8:
         return -0.5
     return (math.cos(x)-1)/(x**2)
+    
 def target_function(x):
     """Підінтегральна функція згідно з індивідуальним варіантом."""
-
     return math.sin(2*x)*math.exp(-x**2)
+
 def main():
     """Точка входу програми."""
-
     a=0
     b=1
     eps=1e-4
@@ -37,7 +37,7 @@ def main():
     print(TrapezoidIntegrator(target_function,a,b).adaptive_integrate(eps,2))
     print(SimpsonIntegrator(target_function,a,b).adaptive_integrate(eps,2))
     eps*=0.1
-    print("Функція, та що із заданого варіанту та з видозміненим ")
+    print("Функція, та що із заданого варіанту та з видозміненим ε")
     print(RectangleIntegrator(target_function,a,b).adaptive_integrate(eps,2))
     print(TrapezoidIntegrator(target_function,a,b).adaptive_integrate(eps,2))
     print(SimpsonIntegrator(target_function,a,b).adaptive_integrate(eps,2))

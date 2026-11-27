@@ -56,7 +56,6 @@ class BaseIntegrator:
 
 class RectangleIntegrator(BaseIntegrator):
     """Обчислення інтеграла складеною формулою середніх прямокутників."""
-
     order = None
     method_name = "Формула прямокутників"
 
@@ -76,7 +75,6 @@ class RectangleIntegrator(BaseIntegrator):
 
 class TrapezoidIntegrator(BaseIntegrator):
     """Обчислення інтеграла складеною формулою трапецій."""
-
     order = None
     method_name = "Формула трапецій"
 
@@ -98,7 +96,6 @@ class TrapezoidIntegrator(BaseIntegrator):
 
 class SimpsonIntegrator(BaseIntegrator):
     """Обчислення інтеграла складеною формулою Сімпсона."""
-
     order = None
     method_name = "Формула Сімпсона"
     
