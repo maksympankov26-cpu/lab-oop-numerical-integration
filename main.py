@@ -15,31 +15,34 @@ def test_function(x):
     if abs(x)<=1e-8:
         return -0.5
     return (math.cos(x)-1)/(x**2)
-    
+
 def target_function(x):
     """Підінтегральна функція згідно з індивідуальним варіантом."""
     return math.sin(2*x)*math.exp(-x**2)
 
 def main():
     """Точка входу програми."""
+    methods=[RectangleIntegrator,TrapezoidIntegrator,SimpsonIntegrator]
     a=0
     b=1
     eps=1e-4
-    print("Тестова функція:")
-    print(RectangleIntegrator(test_function,a,b).adaptive_integrate(eps,2))
-    print(TrapezoidIntegrator(test_function,a,b).adaptive_integrate(eps,2))
-    print(SimpsonIntegrator(test_function,a,b).adaptive_integrate(eps,2))
+    print("Тестова функція:\n")
+    for i in range(len(methods)):
+        print(methods[i](test_function,a,b).adaptive_integrate(eps,2))
     a=1
     b=2
     eps=0.00007
-    print("Функція, та що із заданого варіанту")
-    print(RectangleIntegrator(target_function,a,b).adaptive_integrate(eps,2))
-    print(TrapezoidIntegrator(target_function,a,b).adaptive_integrate(eps,2))
-    print(SimpsonIntegrator(target_function,a,b).adaptive_integrate(eps,2))
+    print("Функція, та що із заданого варіанту\n")
+    for i in range(len(methods)):
+        print(methods[i](target_function,a,b).adaptive_integrate(eps,2))
+    print('Та ж сама функція що з нашого варіанту, тільки з альтернативним конструктором створення інтегратора зі словника\n')
+    params={a: 2, b: 5}
+    for i in range(len(methods)):
+        print(methods[i].from_dict(target_function,params).adaptive_integrate(eps,2))
     eps*=0.1
-    print("Функція, та що із заданого варіанту та з видозміненим ε")
-    print(RectangleIntegrator(target_function,a,b).adaptive_integrate(eps,2))
-    print(TrapezoidIntegrator(target_function,a,b).adaptive_integrate(eps,2))
-    print(SimpsonIntegrator(target_function,a,b).adaptive_integrate(eps,2))
+    print("Функція, та що із заданого варіанту та з видозміненим ε\n")
+    for i in range(len(methods)):
+        print(methods[i](target_function,a,b).adaptive_integrate(eps,2))
+
 if __name__ == "__main__":
     main()
