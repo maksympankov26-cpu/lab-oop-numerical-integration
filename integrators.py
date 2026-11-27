@@ -16,8 +16,8 @@ class BaseIntegrator:
 
     def from_dict(cls, func, params):
         """Альтернативний конструктор для створення інтегратора зі словника."""
-        a=params.get("a")
-        b=params.get("b")
+        a=params.get(1)
+        b=params.get(2)
         cls.validate_bounds(a, b)
         return cls(func, a, b)
     
